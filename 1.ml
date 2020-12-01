@@ -2,23 +2,22 @@ open Core
 
 let entries = In_channel.read_lines "1.txt" |> List.map ~f:int_of_string
 
-let pairs lst =
-  List.mapi lst ~f:(fun i left ->
-      List.drop lst (i + 1) |> List.map ~f:(fun right -> (left, right)))
-  |> List.join
+let entry_set = Hash_set.of_list (module Int) entries
 
-let triplets lst =
-  List.mapi lst ~f:(fun i left ->
-      List.drop lst (i + 1)
-      |> pairs
-      |> List.map ~f:(fun (middle, right) -> (left, middle, right)))
-  |> List.join
+let remainder value target entry_set =
+  if Hash_set.mem entry_set (target - value) then Some (target - value)
+  else None
 
 let () =
-  pairs entries
-  |> List.find ~f:(fun (left, right) -> left + right = 2020)
-  |> Option.iter ~f:(fun (left, right) -> printf "%d\n" (left * right));
-  triplets entries
-  |> List.find ~f:(fun (left, middle, right) -> left + middle + right = 2020)
-  |> Option.iter ~f:(fun (left, middle, right) ->
-         printf "%d\n" (left * middle * right))
+  Hash_set.find_map entry_set ~f:(fun value ->
+      remainder value 2020 entry_set
+      |> Option.map ~f:(fun remainder -> (value, remainder)))
+  |> Option.iter ~f:(fun (value, remainder) ->
+         printf "%d\n" (value * remainder));
+
+  Hash_set.find_map entry_set ~f:(fun value ->
+      Hash_set.find_map entry_set ~f:(fun second ->
+          remainder second (2020 - value) entry_set
+          |> Option.map ~f:(fun remainder -> (value, second, remainder))))
+  |> Option.iter ~f:(fun (value, second, remainder) ->
+         printf "%d\n" (value * second * remainder))
