@@ -1,0 +1,4 @@
+(executable
+ (name 1)
+ (libraries core )
+ )
