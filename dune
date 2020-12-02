@@ -1,4 +1,8 @@
 (executable
  (name 1)
- (libraries core )
- )
+ (modules 1)
+ (libraries core))
+(executable
+ (name 2)
+ (modules 2)
+ (libraries core re2))
