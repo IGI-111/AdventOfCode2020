@@ -6,3 +6,7 @@
  (name 2)
  (modules 2)
  (libraries core re2))
+(executable
+ (name 3)
+ (modules 3)
+ (libraries core))
