@@ -10,3 +10,7 @@
  (name 3)
  (modules 3)
  (libraries core))
+(executable
+ (name 4)
+ (modules 4)
+ (libraries core re2))
