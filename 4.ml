@@ -67,16 +67,13 @@ let validate_eyr eyr_str =
 
 let valid_passport_gold (batch : batch) : bool =
   valid_passport_silver batch
-  &&
-  let byr = Hashtbl.find_exn batch "byr"
-  and iyr = Hashtbl.find_exn batch "iyr"
-  and eyr = Hashtbl.find_exn batch "eyr"
-  and hgt = Hashtbl.find_exn batch "hgt"
-  and hcl = Hashtbl.find_exn batch "hcl"
-  and ecl = Hashtbl.find_exn batch "ecl"
-  and pid = Hashtbl.find_exn batch "pid" in
-  validate_byr byr && validate_iyr iyr && validate_eyr eyr && validate_hgt hgt
-  && validate_hcl hcl && validate_ecl ecl && validate_pid pid
+  && validate_byr (Hashtbl.find_exn batch "byr")
+  && validate_iyr (Hashtbl.find_exn batch "iyr")
+  && validate_eyr (Hashtbl.find_exn batch "eyr")
+  && validate_hgt (Hashtbl.find_exn batch "hgt")
+  && validate_hcl (Hashtbl.find_exn batch "hcl")
+  && validate_ecl (Hashtbl.find_exn batch "ecl")
+  && validate_pid (Hashtbl.find_exn batch "pid")
 
 let print_batch batch =
   Hashtbl.iteri batch ~f:(fun ~key ~data -> printf "'%s' = '%s'\n" key data);
@@ -85,12 +82,5 @@ let print_batch batch =
 let () =
   List.fold batches ~init:(0, 0) ~f:(fun (acc_silver, acc_gold) batch ->
       ( (if valid_passport_silver batch then acc_silver + 1 else acc_silver),
-        if valid_passport_gold batch then (
-          printf "valid\n";
-          print_batch batch;
-          acc_gold + 1 )
-        else (
-          printf "invalid\n";
-          print_batch batch;
-          acc_gold ) ))
+        if valid_passport_gold batch then acc_gold + 1 else acc_gold ))
   |> fun (silver, gold) -> printf "%d\n%d\n" silver gold
