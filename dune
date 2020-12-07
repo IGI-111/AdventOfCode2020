@@ -18,3 +18,7 @@
  (name 5)
  (modules 5)
  (libraries core))
+(executable
+ (name 6)
+ (modules 6)
+ (libraries core re2))
