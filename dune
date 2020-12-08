@@ -26,3 +26,7 @@
  (name 7)
  (modules 7)
  (libraries core re2))
+(executable
+ (name 8)
+ (modules 8)
+ (libraries core re2))
