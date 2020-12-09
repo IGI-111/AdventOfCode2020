@@ -30,3 +30,7 @@
  (name 8)
  (modules 8)
  (libraries core re2))
+(executable
+ (name 9)
+ (modules 9)
+ (libraries core))
