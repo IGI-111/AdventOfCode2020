@@ -42,3 +42,7 @@
  (name 11)
  (modules 11)
  (libraries core))
+(executable
+ (name 12)
+ (modules 12)
+ (libraries core))
