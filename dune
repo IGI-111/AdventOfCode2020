@@ -37,4 +37,8 @@
 (executable
  (name 10)
  (modules 10)
- (libraries core parmap))
+ (libraries core))
+(executable
+ (name 11)
+ (modules 11)
+ (libraries core))
