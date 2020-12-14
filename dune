@@ -34,3 +34,7 @@
  (name 9)
  (modules 9)
  (libraries core))
+(executable
+ (name 10)
+ (modules 10)
+ (libraries core parmap))
